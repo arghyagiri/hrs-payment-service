@@ -1,5 +1,6 @@
 package com.tcs.training.payment.service;
 
+import com.tcs.training.model.exception.NoDataFoundException;
 import com.tcs.training.payment.entity.Payment;
 import com.tcs.training.payment.model.PaymentStatus;
 import com.tcs.training.payment.model.PaymentType;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +34,15 @@ public class PaymentService {
 	}
 
 	@Transactional
-	public Payment refund(Payment payment) {
-		payment.setPaymentType(PaymentType.REFUND);
-		return paymentRepository.save(payment);
+	public Payment refund(UUID paymentId) {
+		Payment payment = paymentRepository.getReferenceById(paymentId);
+		if(payment != null) {
+			payment.setPaymentType(PaymentType.REFUND);
+			return paymentRepository.save(payment);
+		} else {
+			throw new NoDataFoundException(
+					String.format("Payment Refund failed as payment reference %s is not found", payment.getPaymentId()));
+		}
 	}
 
 	public boolean isSuccessful(){

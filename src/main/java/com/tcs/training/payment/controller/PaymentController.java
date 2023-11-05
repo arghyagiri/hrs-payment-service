@@ -28,10 +28,9 @@ public class PaymentController {
 	}
 
 
-	@PostMapping("/refund")
-	public Payment processRefund(@RequestBody Payment payment) {
-		payment.setPaymentId(null);
-		return paymentService.refund(payment);
+	@PostMapping("/refund/{paymentId}")
+	public Payment processRefund(@PathVariable("paymentId") UUID paymentId) {
+		return paymentService.refund(paymentId);
 	}
 
 }
