@@ -26,11 +26,11 @@ public class PaymentService {
 		payment.setPaymentStatus(PaymentStatus.FAILED);
 		if(isSuccessful()){
 			payment.setPaymentStatus(PaymentStatus.SUCCESS);
-			return paymentRepository.save(payment);
 		}
 		else {
-			throw new RuntimeException("Payment Failed. Please try again.");
+			payment.setPaymentStatus(PaymentStatus.FAILED);
 		}
+		return paymentRepository.save(payment);
 	}
 
 	@Transactional
