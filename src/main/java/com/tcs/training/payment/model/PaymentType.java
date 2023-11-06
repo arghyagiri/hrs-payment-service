@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum PaymentType {
 
-	PAY("PAY"),
-	REFUND("REFUND");
+	PAY("PAY"), REFUND("REFUND");
 
 	private final String name;
 

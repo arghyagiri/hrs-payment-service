@@ -14,6 +14,7 @@ import java.util.UUID;
 public class PaymentController {
 
 	private final PaymentService paymentService;
+
 	private final PaymentRepository paymentRepository;
 
 	@GetMapping("/{id}")
@@ -26,7 +27,6 @@ public class PaymentController {
 		payment.setPaymentId(null);
 		return paymentService.pay(payment);
 	}
-
 
 	@PostMapping("/refund/{paymentId}")
 	public Payment processRefund(@PathVariable("paymentId") UUID paymentId) {

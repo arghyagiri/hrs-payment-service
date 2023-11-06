@@ -24,7 +24,7 @@ public class PaymentService {
 	public Payment pay(Payment payment) {
 		payment.setPaymentType(PaymentType.PAY);
 		payment.setPaymentStatus(PaymentStatus.FAILED);
-		if(isSuccessful()){
+		if (isSuccessful()) {
 			payment.setPaymentStatus(PaymentStatus.SUCCESS);
 		}
 		else {
@@ -36,16 +36,17 @@ public class PaymentService {
 	@Transactional
 	public Payment refund(UUID paymentId) {
 		Payment payment = paymentRepository.getReferenceById(paymentId);
-		if(payment != null) {
+		if (payment != null) {
 			payment.setPaymentType(PaymentType.REFUND);
 			return paymentRepository.save(payment);
-		} else {
-			throw new NoDataFoundException(
-					String.format("Payment Refund failed as payment reference %s is not found", payment.getPaymentId()));
+		}
+		else {
+			throw new NoDataFoundException(String.format("Payment Refund failed as payment reference %s is not found",
+					payment.getPaymentId()));
 		}
 	}
 
-	public boolean isSuccessful(){
+	public boolean isSuccessful() {
 		Random random = new Random();
 		return random.nextBoolean();
 	}

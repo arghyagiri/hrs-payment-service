@@ -39,4 +39,5 @@ public class Payment implements Serializable {
 
 	@Column(nullable = false)
 	private PaymentType paymentType;
+
 }
