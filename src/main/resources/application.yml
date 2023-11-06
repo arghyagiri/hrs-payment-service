@@ -27,7 +27,7 @@ spring:
       lazy-attributes-resolution: true
 
 server:
-  port: 0
+  port: 8083
   servlet:
     context-path: /
 
